@@ -293,31 +293,32 @@ with tab2:
                     if len(summary) > 1:
                         st.dataframe(summary, width="stretch")
 
-                        # ── 생육 항목별 막대 그래프 ──
+                    # ── 생육 항목별 막대 그래프 ──
+                    if len(growth_num_cols) >= 1:
                         st.subheader("📊 개체별 생육 지표 비교")
                         plot_cols = growth_num_cols[:3]
-                        if plot_cols:
-                            fig_bar = make_subplots(
-                                rows=1, cols=len(plot_cols),
-                                subplot_titles=plot_cols,
-                            )
-                            for i, col in enumerate(plot_cols, start=1):
-                                d = growth_df[["개체번호", col]].dropna()
-                                if len(d) >= 2:
-                                    fig_bar.add_trace(
-                                        go.Bar(
-                                            x=d["개체번호"],
-                                            y=d[col],
-                                            name=col,
-                                            fillcolor="#4C72B0",
-                                        ),
-                                        row=1, col=i,
-                                    )
-                            fig_bar.update_layout(
-                                font=dict(family="Malgun Gothic, Apple SD Gothic Neo, sans-serif"),
-                                margin=dict(l=40, r=20, t=30, b=20),
-                            )
-                            st.plotly_chart(fig_bar, width="stretch")
+                        fig_bar = make_subplots(
+                            rows=1, cols=len(plot_cols),
+                            subplot_titles=plot_cols,
+                        )
+                        bar_colors = ["#4C72B0", "#55A868", "#C44E52"]
+                        for i, col in enumerate(plot_cols, start=1):
+                            d = growth_df[["개체번호", col]].dropna()
+                            if len(d) >= 2:
+                                fig_bar.add_trace(
+                                    go.Bar(
+                                        x=d["개체번호"],
+                                        y=d[col],
+                                        name=col,
+                                        marker_color=bar_colors[i - 1],
+                                    ),
+                                    row=1, col=i,
+                                )
+                        fig_bar.update_layout(
+                            font=dict(family="Malgun Gothic, Apple SD Gothic Neo, sans-serif"),
+                            margin=dict(l=40, r=20, t=30, b=20),
+                        )
+                        st.plotly_chart(fig_bar, width="stretch")
 
                     # ── 생중량 상위·하위 개체 ──
                     if "생중량" in growth_df.columns:
@@ -338,7 +339,7 @@ with tab2:
                                 fig_top.add_trace(go.Bar(
                                     x=top_df["개체번호"],
                                     y=top_df["생중량"],
-                                    fillcolor="#2CA02C",
+                                    marker_color="#2CA02C",
                                     name="생중량",
                                 ))
                                 fig_top.update_layout(
@@ -357,7 +358,7 @@ with tab2:
                                 fig_bottom.add_trace(go.Bar(
                                     x=bottom_df["개체번호"],
                                     y=bottom_df["생중량"],
-                                    fillcolor="#D62728",
+                                    marker_color="#D62728",
                                     name="생중량",
                                 ))
                                 fig_bottom.update_layout(
@@ -376,7 +377,7 @@ with tab2:
                             d_box = growth_df[box_cols].dropna()
                             if len(d_box) >= 2:
                                 fig_box = go.Figure()
-                                colors = [
+                                box_colors = [
                                     "#4C72B0", "#55A868", "#C44E52",
                                     "#8172B3", "#CCB974", "#64B5CD",
                                 ]
@@ -384,7 +385,7 @@ with tab2:
                                     fig_box.add_trace(go.Box(
                                         y=d_box[col].dropna(),
                                         name=col,
-                                        fillcolor=colors[i % len(colors)],
+                                        fillcolor=box_colors[i % len(box_colors)],
                                         marker=dict(size=3),
                                     ))
                                 fig_box.update_layout(
@@ -480,7 +481,10 @@ with tab3:
                             )
                             st.plotly_chart(fig_corr, width="stretch")
 
-                            st.markdown("**상관계수 해석**: 1에 가까울수록 두 지표가 함께 증가, -1에 가까울수록 반대로 움직입니다. 0에 가까우면 관계가 약합니다.")
+                            st.markdown(
+                                "**상관계수 해석**: 1에 가까울수록 두 지표가 함께 증가, "
+                                "-1에 가까울수록 반대로 움직입니다. 0에 가까우면 관계가 약합니다."
+                            )
                         else:
                             st.info("상관계수를 계산할 데이터가 부족합니다.")
 
@@ -492,15 +496,15 @@ with tab3:
                             growth_num_cols,
                             index=0,
                         )
+                        y_choices = [c for c in growth_num_cols if c != x_col]
                         y_col = st.selectbox(
                             "Y축 선택",
-                            [c for c in growth_num_cols if c != x_col],
-                            index=min(1, len(growth_num_cols) - 1),
+                            y_choices,
+                            index=min(1, len(y_choices) - 1),
                         )
 
                         d_scatter = growth_df[[x_col, y_col]].dropna()
                         if len(d_scatter) >= 2:
-                            # 추세선 직접 계산 (np.polyfit)
                             x_vals = d_scatter[x_col].values
                             y_vals = d_scatter[y_col].values
                             slope, intercept = np.polyfit(x_vals, y_vals, 1)
