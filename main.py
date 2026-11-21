@@ -65,40 +65,61 @@ html, body, [class*="css"], .stApp, button, input, textarea {{
 .side-note b {{ color: {INK}; }}
 [data-testid="stFileUploaderDropzone"] {{ background: rgba(238,244,249,0.9); border: 1.5px dashed {NEUTRAL}; border-radius: 16px; }}
 
-/* ── 히어로 (오로라가 뜬 극야) ── */
-.hero {{ position: relative; overflow: hidden; border-radius: 30px; padding: 54px 56px 50px; margin-bottom: 28px;
+/* ── 히어로 (북극의 밤: 오로라 · 눈 · 빙산) ── */
+.hero {{ position: relative; overflow: hidden; border-radius: 32px; padding: 60px 60px 120px; margin-bottom: 28px;
+    background: linear-gradient(180deg, #030B17 0%, #071A30 45%, #0D2A4A 80%, #16406A 100%);
+    box-shadow: 0 30px 70px rgba(7,26,48,0.30); }}
+.aurora {{ position: absolute; inset: -20% -10% 30% -10%; pointer-events: none; filter: blur(28px); opacity: .9;
     background:
-        radial-gradient(700px 260px at 78% 18%, rgba(95,224,200,0.55), transparent 60%),
-        radial-gradient(520px 240px at 95% 70%, rgba(116,104,232,0.55), transparent 60%),
-        radial-gradient(420px 200px at 55% 0%, rgba(18,135,168,0.55), transparent 65%),
-        linear-gradient(135deg, #071526 0%, #0B1E33 55%, #10294A 100%);
-    box-shadow: 0 24px 60px rgba(11,30,51,0.22); }}
-.hero::before {{ content: ""; position: absolute; inset: 0; opacity: .55;
+        radial-gradient(40% 55% at 70% 40%, rgba(95,224,200,0.75), transparent 70%),
+        radial-gradient(30% 45% at 88% 30%, rgba(116,104,232,0.70), transparent 70%),
+        radial-gradient(35% 40% at 48% 20%, rgba(56,189,248,0.55), transparent 70%),
+        radial-gradient(25% 35% at 30% 35%, rgba(95,224,200,0.30), transparent 70%);
+    animation: aurora 16s ease-in-out infinite alternate; }}
+@keyframes aurora {{
+    0%   {{ transform: translateX(-4%) skewX(-6deg) scaleY(1); opacity: .75; }}
+    50%  {{ transform: translateX(3%) skewX(4deg) scaleY(1.12); opacity: 1; }}
+    100% {{ transform: translateX(-2%) skewX(-2deg) scaleY(0.95); opacity: .8; }} }}
+.stars {{ position: absolute; inset: 0; pointer-events: none; opacity: .7;
     background-image:
-        radial-gradient(1.4px 1.4px at 12% 22%, #fff, transparent),
-        radial-gradient(1px 1px at 28% 68%, #fff, transparent),
-        radial-gradient(1.6px 1.6px at 46% 34%, #fff, transparent),
-        radial-gradient(1px 1px at 63% 78%, #fff, transparent),
-        radial-gradient(1.3px 1.3px at 71% 12%, #fff, transparent),
-        radial-gradient(1px 1px at 86% 46%, #fff, transparent),
-        radial-gradient(1.2px 1.2px at 92% 86%, #fff, transparent),
-        radial-gradient(1px 1px at 6% 82%, #fff, transparent),
-        radial-gradient(1.4px 1.4px at 38% 90%, #fff, transparent); }}
-.hero::after {{ content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 70px;
-    background: linear-gradient(180deg, transparent, rgba(224,241,247,0.10));
-    clip-path: polygon(0 100%, 0 60%, 9% 30%, 16% 55%, 27% 15%, 36% 50%, 47% 25%, 58% 60%, 69% 20%, 80% 52%, 90% 32%, 100% 58%, 100% 100%); }}
-.hero > * {{ position: relative; z-index: 1; }}
+        radial-gradient(1.3px 1.3px at 12% 18%, #fff, transparent), radial-gradient(1px 1px at 24% 52%, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 41% 12%, #fff, transparent), radial-gradient(1px 1px at 57% 44%, #fff, transparent),
+        radial-gradient(1.2px 1.2px at 66% 8%, #fff, transparent), radial-gradient(1px 1px at 81% 22%, #fff, transparent),
+        radial-gradient(1.4px 1.4px at 93% 10%, #fff, transparent), radial-gradient(1px 1px at 6% 40%, #fff, transparent),
+        radial-gradient(1.2px 1.2px at 34% 30%, #fff, transparent); }}
+.snow {{ position: absolute; left: 0; right: 0; top: -300px; bottom: 0; pointer-events: none; background-repeat: repeat; }}
+.snow.s1 {{ background-size: 300px 300px; opacity: .9; animation: fall 22s linear infinite;
+    background-image:
+        radial-gradient(2.2px 2.2px at 20px 30px, #fff, transparent), radial-gradient(1.6px 1.6px at 90px 140px, #fff, transparent),
+        radial-gradient(2.4px 2.4px at 160px 60px, #fff, transparent), radial-gradient(1.8px 1.8px at 230px 200px, #fff, transparent),
+        radial-gradient(2px 2px at 280px 110px, #fff, transparent), radial-gradient(1.5px 1.5px at 130px 250px, #fff, transparent); }}
+.snow.s2 {{ background-size: 200px 200px; opacity: .55; animation: fall2 14s linear infinite;
+    background-image:
+        radial-gradient(1.2px 1.2px at 40px 50px, #fff, transparent), radial-gradient(1px 1px at 120px 20px, #fff, transparent),
+        radial-gradient(1.3px 1.3px at 170px 130px, #fff, transparent), radial-gradient(1px 1px at 70px 170px, #fff, transparent); }}
+@keyframes fall  {{ from {{ transform: translate(0, 0); }} to {{ transform: translate(-40px, 300px); }} }}
+@keyframes fall2 {{ from {{ transform: translate(0, 0); }} to {{ transform: translate(30px, 200px); }} }}
+.berg {{ position: absolute; left: 0; right: 0; bottom: 0; pointer-events: none; }}
+.berg.b1 {{ height: 120px; background: linear-gradient(180deg, #5C88B3, #2E557F);  opacity: .55;
+    clip-path: polygon(0 100%, 0 70%, 6% 52%, 11% 64%, 19% 22%, 25% 40%, 31% 30%, 38% 62%, 46% 45%, 53% 58%, 61% 18%, 66% 34%, 72% 28%, 79% 60%, 86% 38%, 93% 52%, 100% 40%, 100% 100%); }}
+.berg.b2 {{ height: 78px; background: linear-gradient(180deg, #F4FAFF 0%, #CFE3F2 45%, #9DC1DD 100%);
+    clip-path: polygon(0 100%, 0 62%, 8% 40%, 13% 55%, 22% 30%, 30% 58%, 41% 46%, 48% 64%, 57% 34%, 63% 50%, 70% 26%, 78% 54%, 88% 36%, 95% 56%, 100% 44%, 100% 100%); }}
+.berg.b3 {{ height: 22px; background: linear-gradient(180deg, rgba(238,244,249,0.0), {BG}); }}
+.hero-c {{ position: relative; z-index: 2; }}
 .eyebrow {{ display: inline-flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 700;
-    letter-spacing: .2em; color: {AURORA}; text-transform: uppercase; }}
-.eyebrow::before {{ content: "❄"; font-size: 14px; letter-spacing: 0; }}
-.hero-title {{ font-size: clamp(40px, 4.2vw, 64px); font-weight: 800; line-height: 1.1;
-    letter-spacing: -0.04em; color: #fff; margin: 18px 0 14px; }}
+    letter-spacing: .22em; color: {AURORA}; text-transform: uppercase; }}
+.eyebrow .pin {{ padding: 4px 10px; border-radius: 999px; background: rgba(95,224,200,0.12);
+    border: 1px solid rgba(95,224,200,0.35); letter-spacing: .12em; }}
+.hero-title {{ font-size: clamp(42px, 4.4vw, 68px); font-weight: 800; line-height: 1.08;
+    letter-spacing: -0.045em; color: #fff; margin: 20px 0 14px; text-shadow: 0 4px 30px rgba(0,0,0,0.35); }}
 .hero-title span {{ background: linear-gradient(90deg, {AURORA}, #8EC5FF 55%, #B4A8FF);
     -webkit-background-clip: text; background-clip: text; color: transparent; }}
-.hero-sub {{ font-size: 18px; color: rgba(255,255,255,0.72); letter-spacing: -0.01em; }}
-.hero-tags {{ display: flex; gap: 10px; margin-top: 26px; flex-wrap: wrap; }}
-.hero-tag {{ font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.88); padding: 8px 14px; border-radius: 999px;
-    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.16); backdrop-filter: blur(6px); }}
+.hero-sub {{ font-size: 18px; color: rgba(235,245,255,0.75); letter-spacing: -0.01em; }}
+.hero-tags {{ display: flex; gap: 10px; margin-top: 28px; flex-wrap: wrap; }}
+.hero-tag {{ font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.92); padding: 8px 15px; border-radius: 999px;
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18); backdrop-filter: blur(8px); }}
+.bear {{ position: absolute; right: 7%; bottom: 52px; z-index: 2; font-size: 46px; filter: drop-shadow(0 6px 10px rgba(0,0,0,.25)); }}
+@media (prefers-reduced-motion: reduce) {{ .aurora, .snow {{ animation: none; }} }}
 
 /* ── 탭 (알약 모양) ── */
 .stTabs [role="tablist"] {{ gap: 6px; background: rgba(255,255,255,0.85); padding: 6px; border-radius: 999px;
@@ -126,13 +147,15 @@ html, body, [class*="css"], .stApp, button, input, textarea {{
 /* ── 섹션 제목 ── */
 .sec {{ margin: 44px 0 16px; }}
 .sec-k {{ font-size: 11.5px; font-weight: 700; letter-spacing: .18em; color: {ACCENT}; }}
+.sec .sec-k::before {{ content: "❄  "; letter-spacing: 0; }}
 .sec-t {{ font-size: 28px; font-weight: 800; letter-spacing: -0.035em; color: {INK}; margin-top: 6px; }}
 .sec-d {{ font-size: 15px; color: {MUTED}; margin-top: 6px; line-height: 1.6; }}
 
 /* ── 공통 카드 (얼음 유리) ── */
 .callout, [data-testid="stMetric"], [data-testid="stPlotlyChart"], [data-testid="stExpander"] {{
     background: rgba(255,255,255,0.82); border: 1px solid rgba(255,255,255,0.95);
-    box-shadow: 0 10px 30px rgba(11,30,51,0.06), inset 0 0 0 1px {LINE}; backdrop-filter: blur(10px); }}
+    box-shadow: 0 10px 30px rgba(11,30,51,0.06), inset 0 0 0 1px {LINE}, inset 0 2px 0 rgba(255,255,255,1);
+    backdrop-filter: blur(10px); }}
 
 .callout {{ border-radius: 22px; padding: 24px 26px; height: 100%; }}
 .callout .lb {{ font-size: 11.5px; font-weight: 700; letter-spacing: .16em; margin-bottom: 10px; color: {MUTED}; }}
@@ -147,6 +170,7 @@ html, body, [class*="css"], .stApp, button, input, textarea {{
         radial-gradient(400px 200px at 100% 100%, rgba(116,104,232,0.40), transparent 60%),
         linear-gradient(135deg, #071526, #0B1E33 60%, #10294A);
     box-shadow: 0 20px 50px rgba(11,30,51,0.22); padding: 34px 36px; }}
+.callout.ink .lb, .callout.ink .bd {{ position: relative; z-index: 1; }}
 .callout.ink .lb {{ color: {AURORA}; }}
 .callout.ink .bd {{ color: #fff; font-size: 23px; line-height: 1.55; }}
 .callout.ink b {{ color: {AURORA}; }}
@@ -165,7 +189,7 @@ html, body, [class*="css"], .stApp, button, input, textarea {{
 [data-testid="stMetricValue"] {{ font-size: 32px; font-weight: 800; letter-spacing: -0.03em; color: {INK}; }}
 
 /* ── 그래프·표·기타 ── */
-[data-testid="stPlotlyChart"] {{ border-radius: 24px; padding: 16px 16px 8px; }}
+[data-testid="stPlotlyChart"] {{ border-radius: 24px; padding: 16px 16px 16px; overflow: hidden; }}
 [data-testid="stDataFrame"] {{ border-radius: 16px; overflow: hidden; border: 1px solid {LINE}; background: #fff; }}
 [data-testid="stExpander"] {{ border-radius: 18px; }}
 [data-testid="stAlert"] {{ border-radius: 16px; border: none; }}
@@ -193,7 +217,8 @@ def section(kicker, title, desc=""):
 
 
 def callout(label, body, kind=""):
-    md(f'<div class="callout {kind}"><div class="lb">{label}</div><div class="bd">{body}</div></div>')
+    fx = '<div class="snow s1"></div><div class="snow s2"></div>' if kind == "ink" else ""
+    md(f'<div class="callout {kind}">{fx}<div class="lb">{label}</div><div class="bd">{body}</div></div>')
 
 
 def note(text):
@@ -220,7 +245,7 @@ def style(fig, height=380, title=""):
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
         height=height,
-        margin=dict(t=54 if title else 14, l=6, r=6, b=6),
+        margin=dict(t=54 if title else 14, l=6, r=6, b=16),
         hoverlabel=dict(bgcolor="white", bordercolor=LINE, font=dict(family=FONT_FAMILY, color=INK)),
     )
     if title:
@@ -393,7 +418,7 @@ def growth_candidates(df):
 # 사이드바 · 데이터 업로드 (맨 위에서 한 번만 읽기)
 # ═════════════════════════════════════════════
 with st.sidebar:
-    md('<div class="side-brand">❄ Polar Plant <span>Lab</span></div>')
+    md('<div class="side-brand">🐻‍❄️ Arctic Plant <span>Lab</span></div>')
     md('<div class="side-label">DATA</div>')
     env_file = st.file_uploader("환경 데이터 CSV", type="csv")
     growth_file = st.file_uploader("생육 결과 데이터 CSV", type="csv")
@@ -434,10 +459,14 @@ if "temperature" in env_df.columns and env_df["temperature"].notna().any():
 tags.append("📊 가설 → 검증 → 발견")
 hero_tags = "".join(f'<span class="hero-tag">{t}</span>' for t in tags)
 md(
-    f'<div class="hero"><div class="eyebrow">Polar Plant Lab · {html.escape(school)}</div>'
+    '<div class="hero"><div class="aurora"></div><div class="stars"></div>'
+    '<div class="snow s1"></div><div class="snow s2"></div>'
+    '<div class="berg b1"></div><div class="berg b2"></div><div class="berg b3"></div>'
+    '<div class="bear">🐻‍❄️</div>'
+    f'<div class="hero-c"><div class="eyebrow">❄ Arctic Plant Lab <span class="pin">{html.escape(school)}</span></div>'
     '<div class="hero-title">극지식물 생중량,<br><span>무엇이</span> 결정할까?</div>'
-    '<div class="hero-sub">같은 스마트팜, 다른 성장 — 개체별 생육 차이 분석</div>'
-    f'<div class="hero-tags">{hero_tags}</div></div>'
+    '<div class="hero-sub">같은 스마트팜, 다른 성장 — 북극에서 온 식물들의 개체별 생육 차이 분석</div>'
+    f'<div class="hero-tags">{hero_tags}</div></div></div>'
 )
 
 if env_file is None and growth_file is None:
@@ -617,7 +646,7 @@ with tab2:
             else:
                 c1, c2 = st.columns([2.2, 1], gap="medium")
                 with c1:
-                    fig.update_layout(title=None, margin=dict(t=14, l=6, r=6, b=6))
+                    fig.update_layout(title=None, margin=dict(t=14, l=6, r=6, b=16))
                     st.plotly_chart(fig, width="stretch")
                 with c2:
                     st.metric(f"상관계수 r · {strength(r1)}", f"{r1:.2f}")
@@ -665,30 +694,34 @@ with tab2:
                 rows.append({"가설": part, "비교 쌍": f"{x} ↔ {y}", "r": round(r, 2),
                              "R² (설명력)": f"{r * r * 100:.1f}%", "강도": strength(r),
                              "판정": "✅ 예상과 일치" if ok else "❌ 예상과 다름"})
-            if rows:
-                st.dataframe(pd.DataFrame(rows), width="stretch", hide_index=True)
-                note("<b>R²(결정계수)</b> = r × r. R² = 9%면 생중량 차이의 9%만 그 항목으로 설명된다는 뜻이에요. "
-                     "기준: |r| ≥ 0.7 강함 · 0.4~0.7 보통 · 0.4 미만 약함")
-            else:
-                st.info("계산할 수 있는 상관계수가 없어요.")
+            res1, res2 = st.columns([1.35, 1], gap="medium")
+            with res1:
+                if rows:
+                    st.dataframe(pd.DataFrame(rows), width="stretch", hide_index=True)
+                    note("<b>R²(결정계수)</b> = r × r. R² = 9%면 생중량 차이의 9%만 그 항목으로 설명된다는 뜻이에요. "
+                         "기준: |r| ≥ 0.7 강함 · 0.4~0.7 보통 · 0.4 미만 약함")
+                else:
+                    st.info("계산할 수 있는 상관계수가 없어요.")
 
             len_r = {x: pearson(growth_df, x, "생중량") for x in ["지상부 길이", "지하부 길이"]}
             len_r = {k: v for k, v in len_r.items() if v is not None}
             if len_r:
                 fig = go.Figure()
                 fig.add_trace(go.Bar(y=list(len_r.keys()), x=[100] * len(len_r), orientation="h",
-                                     marker_color="#EEF2F0", hoverinfo="skip", showlegend=False))
+                                     marker_color="#E6EEF5", hoverinfo="skip", showlegend=False))
                 fig.add_trace(go.Bar(
                     y=list(len_r.keys()), x=[v * v * 100 for v in len_r.values()], orientation="h",
                     marker_color=WARM, text=[f"  {v * v * 100:.1f}%" for v in len_r.values()],
                     textposition="outside", textfont=dict(color=INK, size=14), showlegend=False,
                     hovertemplate="%{y}<br>설명력 %{x:.1f}%<extra></extra>",
                 ))
-                style(fig, height=220, title="길이가 생중량 차이를 설명하는 비율 (전체 100% 중)")
+                style(fig, height=230, title="길이가 생중량 차이를 설명하는 비율 (100% 중)")
                 fig.update_layout(barmode="overlay", bargap=0.45, barcornerradius=8,
                                   xaxis=dict(range=[0, 100], showticklabels=False, showgrid=False),
                                   yaxis=dict(showgrid=False))
-                st.plotly_chart(fig, width="stretch")
+                with res2:
+                    st.plotly_chart(fig, width="stretch")
+                st.write("")
 
                 best = max(abs(v) for v in len_r.values())
                 pct = max(v * v for v in len_r.values()) * 100
@@ -739,36 +772,50 @@ with tab3:
                 ))
                 fig.add_vline(x=0.7, line_dash="dot", line_color=WARM, line_width=1.5,
                               annotation_text="강한 상관 0.7", annotation_position="bottom right", annotation_font_color=WARM)
-                style(fig, height=110 + 56 * len(rank))
+                style(fig, height=max(360, 110 + 56 * len(rank)))
                 fig.update_layout(bargap=0.4, barcornerradius=8,
                                   xaxis=dict(range=[min(0, min(r for _, r in rank)) - 0.1, 1.05], title="상관계수 r"),
                                   yaxis=dict(showgrid=False))
-                st.plotly_chart(fig, width="stretch")
+                rk1, rk2 = st.columns([2.2, 1], gap="medium")
+                with rk1:
+                    st.plotly_chart(fig, width="stretch")
+                with rk2:
+                    st.metric("🥇 1위 항목", top)
+                    st.metric(f"상관계수 r · {strength(top_r)}", f"{top_r:.2f}")
+                    if len_rs and max(len_rs) > 0 and "길이" not in top:
+                        ratio = (top_r ** 2) / (max(len_rs) ** 2)
+                        st.metric("설명력 R²", f"{top_r ** 2 * 100:.1f}%", f"길이보다 약 {ratio:.0f}배")
+                    else:
+                        st.metric("설명력 R²", f"{top_r ** 2 * 100:.1f}%")
 
-                m1, m2, m3 = st.columns(3)
-                m1.metric("1위 항목", top)
-                m2.metric(f"상관계수 r · {strength(top_r)}", f"{top_r:.2f}")
-                if len_rs and max(len_rs) > 0 and "길이" not in top:
-                    ratio = (top_r ** 2) / (max(len_rs) ** 2)
-                    m3.metric("설명력 R²", f"{top_r ** 2 * 100:.1f}%", f"길이보다 약 {ratio:.0f}배")
-                else:
-                    m3.metric("설명력 R²", f"{top_r ** 2 * 100:.1f}%")
-
-                section("REGRESSION", f"{top}이 늘면 생중량도 늘까?")
+                section("REGRESSION", f"{top}이 늘면 생중량도 늘까?", "회귀식으로 관계를 정리하고, 오른쪽 예측기로 직접 확인해 보세요.")
+                rg1, rg2 = st.columns([1.9, 1], gap="medium")
                 fig, r, ab = scatter_with_trend(growth_df, top, "생중량", color=ACCENT)
                 has_model = fig is not None
                 if has_model:
                     a, b = ab
                     sign = "+" if b >= 0 else "−"
                     eq = f"생중량 = {a:.4f} × {top} {sign} {abs(b):.4f}"
-                    fig.update_layout(title=None, margin=dict(t=14, l=6, r=6, b=6),
+                    fig.update_layout(title=None, margin=dict(t=14, l=6, r=6, b=16),
                                       xaxis_title=f"{top} ({unit})" if unit else top, yaxis_title="생중량 (g)")
                     fig.add_annotation(xref="paper", yref="paper", x=0.02, y=0.97, showarrow=False, align="left",
                                        text=f"<b>{eq}</b><br><span style='color:{MUTED}'>r = {r:.2f}  ·  R² = {r * r * 100:.1f}%</span>",
                                        bgcolor="rgba(255,255,255,0.92)", bordercolor=LINE, borderwidth=1, borderpad=10,
                                        font=dict(size=13, color=INK))
-                    st.plotly_chart(fig, width="stretch")
-                    note("<b>회귀식</b> — 점들 사이를 가장 잘 지나는 직선의 식이에요. 기울기 a는 항목이 1 늘 때 생중량이 평균적으로 얼마나 느는지를 뜻해요.")
+                    with rg1:
+                        st.plotly_chart(fig, width="stretch")
+                        note("<b>회귀식</b> — 점들 사이를 가장 잘 지나는 직선의 식이에요. 기울기 a는 항목이 1 늘 때 생중량이 평균적으로 얼마나 느는지를 뜻해요.")
+                    with rg2:
+                        md('<div class="sec-k" style="margin:6px 0 10px">🧮 PREDICTOR</div>')
+                        s = growth_df[top].dropna()
+                        lo_v, hi_v = float(s.min()), float(s.max())
+                        if hi_v > lo_v:
+                            val = st.slider(f"{top} 값을 골라 보세요", min_value=lo_v, max_value=hi_v, value=float(s.median()))
+                            pred = ab[0] * val + ab[1]
+                            st.metric(f"{top} {val:g}{unit}일 때 예상 생중량", f"{max(pred, 0):.2f} g")
+                            note("실제 데이터 범위 밖은 예측이 부정확해서 슬라이더를 실제 범위로 제한했어요.")
+                        else:
+                            st.info("값이 모두 같아 예측기를 만들 수 없어요.")
 
                 section("TOP vs BOTTOM", f"생중량 상위 25% vs 하위 25%, {top}은?")
                 sub = growth_df[["생중량", top]].dropna()
@@ -789,28 +836,15 @@ with tab3:
                     with c2:
                         bfig = go.Figure()
                         bfig.add_trace(go.Box(y=hi, name="상위 25%", marker=dict(color=ACCENT, size=6),
-                                              line=dict(color=ACCENT), fillcolor="rgba(30,123,95,0.18)",
+                                              line=dict(color=ACCENT), fillcolor="rgba(18,135,168,0.18)",
                                               boxpoints="all", jitter=0.45, pointpos=0))
                         bfig.add_trace(go.Box(y=lo, name="하위 25%", marker=dict(color=WARM, size=6),
-                                              line=dict(color=WARM), fillcolor="rgba(226,121,58,0.18)",
+                                              line=dict(color=WARM), fillcolor="rgba(240,138,75,0.18)",
                                               boxpoints="all", jitter=0.45, pointpos=0))
                         style(bfig, height=380)
                         bfig.update_layout(showlegend=False, yaxis_title=f"{top} ({unit})" if unit else top, margin=dict(t=14, l=6, r=6, b=40))
                         st.plotly_chart(bfig, width="stretch")
                     note("<b>박스플롯</b> — 상자 가운데 선은 중앙값, 상자는 가운데 50% 개체가 있는 범위예요.")
-
-                if has_model:
-                    section("PREDICTOR", "생중량 예측기")
-                    s = growth_df[top].dropna()
-                    lo_v, hi_v = float(s.min()), float(s.max())
-                    if hi_v > lo_v:
-                        c1, c2 = st.columns([2, 1], gap="medium")
-                        with c1:
-                            val = st.slider(f"{top} 값을 골라 보세요", min_value=lo_v, max_value=hi_v, value=float(s.median()))
-                            note("실제 데이터 범위 밖은 예측이 부정확해서 슬라이더를 실제 범위로 제한했어요.")
-                        with c2:
-                            pred = ab[0] * val + ab[1]
-                            st.metric(f"{top} {val:g}{unit} → 예상 생중량", f"{max(pred, 0):.2f} g")
 
                 section("EXPLORE", "직접 탐색", "사이드바에서 다른 항목을 골라 생중량과 비교해 보세요.")
                 if explore_col is None:
