@@ -603,14 +603,3 @@ with tab3:
             )
     except Exception as e:
         st.warning(f"⚠️ 이 부분은 데이터 형식 때문에 표시하지 못했어요: {e}")
-
-                    if not growth_df.empty:
-                        csv_data = growth_df.to_csv(index=False).encode("utf-8-sig")
-                        st.download_button(
-                            label="📥 생육 결과 CSV 다운로드",
-                            data=csv_data,
-                            file_name=f"{school_name_growth or '생육결과'}_정리.csv",
-                            mime="text/csv",
-                        )
-    except Exception as e:
-        st.warning(f"⚠️ 이 부분은 데이터 형식 때문에 표시하지 못했어요: {e}")
